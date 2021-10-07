@@ -1,3 +1,81 @@
-<footer class="international-modal__footer">
-  <button class="international-modal__btn" data-micromodal-close aria-label="Back">Back</button>
-</footer>
+<!-- Note: -->
+<!-- This entire file needs to be added to theme for international site selector -->
+
+{% if section.settings.enable_selector %}
+{%- comment -%}open trigger - MicroModal.show('international-modal');{%- endcomment -%}
+<div class="international-modal micromodal-slide" id="international-modal" aria-hidden="true" data-current-site="{{ section.settings.current_site }}" data-section-id="{{ section.id }}" data-section-type="international-select">
+  <div class="international-modal__overlay" tabindex="-1" data-micromodal-close>
+    <div class="international-modal__container" role="dialog" aria-modal="true" aria-labelledby="international-modal-title">
+
+      <header class="international-modal__header">
+        <span class="international-modal__title" id="international-modal-title">
+          Change your shipping country
+        </span>
+        <button class="international-modal__close" aria-label="Close modal" data-micromodal-close></button>
+      </header>
+
+      <main class="international-modal__content" id="international-modal-content">
+        <select id="international-select">
+          {%- for block in section.blocks-%}
+            <option value="{{ block.settings.site_url }}"{% if forloop.first %} id="currentSite"{% endif %}>{{ block.settings.option_label }}</option>
+          {% endfor %}
+        </select>
+      </main>
+
+      <footer class="international-modal__footer">
+        <button class="international-modal__btn" aria-label="Back">Back</button>
+      </footer>
+
+    </div>
+  </div>
+</div>
+{% else %}
+{% comment %} international selector is disabled, remove the trigger buttons from desktop and mobile menus {% endcomment %}
+<script>$('.region-select-trigger-wrapper').remove();</script>
+{% endif %}
+
+{%- schema -%}
+  {
+    "name": "International Selector",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_selector",
+        "label": "Enable International Selector",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "current_site",
+        "label": "Current Site/Button Label",
+        "info": "This should be an abbreviated label and will appear on the button-triggers representing the current site the user is on, that when clicked will open the International Selector modal.",
+        "default": "US / $"
+      },
+      {
+        "type": "header",
+        "content": "International Site Instructions",
+        "info": "Add a block for each international site that should exist as an option in the International Selector dropdown menu. Make sure to rearrange the sites so the current site is the first one listed, e.g. if this is the US site then the US option should be the first in the list."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Site",
+        "settings": [
+          {
+            "type": "text",
+            "id": "option_label",
+            "label": "Dropdown Site Label",
+            "info": "This will appear in the International Selector modal dropdown menu.",
+            "default": "United States / $"
+          },
+          {
+            "type": "url",
+            "id": "site_url",
+            "label": "Site URL"
+          }
+        ]
+      }
+   ]
+  }
+{% endschema %}

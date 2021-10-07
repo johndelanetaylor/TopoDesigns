@@ -1,0 +1,182 @@
+/* Add to custom.scss.liquid file for international site selector */
+
+/**************************\
+  MicroModal Styles - Used for international selector in theme.liquid & international-selector.liquid
+\**************************/
+  @keyframes mmfadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes mmfadeOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes mmslideIn { from { transform: translateY(15%); } to { transform: translateY(0); } }
+  @keyframes mmslideOut { from { transform: translateY(0); } to { transform: translateY(-10%); } }
+
+  .international-selector-trigger.modal-trigger-desktop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+    background: {{ settings.header_banner_bg }};
+    color: rgba(255, 255, 255, .8); // matchess ".color-scheme-light"
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    line-height: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: {{ settings.header_banner_bg | color_darken: 10 }};
+    }
+
+    @media (max-width: 991px)  {
+      height: 45px;
+    }
+
+    @media only screen and (max-width: 749px) {
+      display: none;
+    }
+  }
+
+  .international-selector-trigger.modal-trigger-mobile {
+    font-size: 14px;
+    cursor: pointer;
+
+    @media only screen and (min-width: 750px) {
+      display: none;
+    }
+  }
+
+  .international-modal {
+    position: relative;
+    z-index: 9999;
+
+    .international-modal__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .international-modal__container {
+      position: relative;
+      background-color: #fff;
+      padding: 50px;
+      overflow-y: auto;
+      box-sizing: border-box;
+
+      @media only screen and (min-width: 750px) {
+        max-width: 90%;
+      }
+    }
+
+    .international-modal__header {
+      padding: 0 15px 10px;
+      border-bottom: 1px solid #EFEFEF;
+
+      .international-modal__title {
+        margin: 0 auto;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.2em;
+        text-align: center;
+        color: #000;
+        box-sizing: border-box;
+        text-transform: none;
+        font-family: "Gotham Narrow A", "Gotham Narrow B", Helvetica, Arial, sans-serif;
+      }
+
+      .international-modal__close {
+        background: transparent;
+        border: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #000!important;
+        font-size: 16px;
+        padding: 0 15px;
+
+        &:before { content: "\2715"; }
+      }
+    }
+
+    .international-modal__content {
+      margin: 30px auto 0;
+      line-height: 1.5;
+      color: #231F20;
+      text-align: center;
+
+      select {
+        border: 1px solid #EFEFEF;
+      }
+    }
+
+    .international-modal__footer {
+      text-align: center;
+
+      .international-modal__btn {
+        font-size: 16px;
+        text-transform: uppercase;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #000;
+        cursor: pointer;
+        -webkit-appearance: button;
+        text-transform: uppercase;
+        overflow: visible;
+        line-height: 1.15;
+        margin: 30px 0 0;
+        padding: 5px;
+        will-change: transform;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+        transition: all 0.3s ease;
+        text-align: center;
+        width: 100%;
+
+        &:focus,
+        &:hover {
+          background: #000;
+          color: #fff;
+        }
+      }
+    }
+
+    &.micromodal-slide {
+      display: none;
+    }
+
+    &.micromodal-slide.is-open {
+      display: block;
+    }
+
+    &.micromodal-slide[aria-hidden="false"] .international-modal__overlay {
+      animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+
+    &.micromodal-slide[aria-hidden="false"] .international-modal__container {
+      animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+    }
+
+    &.micromodal-slide[aria-hidden="true"] .international-modal__overlay {
+      animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+
+    &.micromodal-slide[aria-hidden="true"] .international-modal__container {
+      animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+    }
+
+    &.micromodal-slide .international-modal__container,
+    &.micromodal-slide .international-modal__overlay {
+      will-change: transform;
+    }
+  }

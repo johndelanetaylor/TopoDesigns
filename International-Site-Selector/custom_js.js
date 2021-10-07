@@ -57,7 +57,9 @@ function mobileSearchHandler() {
     });
   }
 }
-
+//
+// add this function to file for international site selector
+//
 function InternationalSelectHandler() {
   // set the trigger button labels to reflect the current site
   var currentSite = $('#currentSite').val();
@@ -75,14 +77,14 @@ function InternationalSelectHandler() {
     // if the selected option is different from the current site, enable the button to trigger the site switch, otherwise disable it
     if(selectedSite != currentSite){
       // console.log('get ready to go to ' + selectedSite);
-      modalButton.attr('aria-label', 'Go').text('Go').off('click').on('click', function () { // replace this line
+      modalButton.attr('aria-label', 'Go').text('Go').off('click').on('click', function () {
         window.location.href = selectedSite;
       });
     } else {
       // console.log('we\'re staying here folks');
-      modalButton.attr('aria-label','Back').text('Back').off('click').on('click', function(){ // replace these lines
-        MicroModal.close('international-modal');                                              // replace these lines
-      })                                                                                      // replace these lines
+      modalButton.attr('aria-label','Back').text('Back').off('click').on('click', function(){
+        MicroModal.close('international-modal');
+      })
     }
   });
 }
@@ -103,8 +105,11 @@ jQuery(document).ready(function() {
     mobileSearchHandler();
   });
 
+//
+// add this to file for international site selector
+//
   // initialize the international site selector
-  InternationalSelectHandler();                                                               // replace these lines
+  InternationalSelectHandler();
 
   // automatic smooth scroll using anchor hash links
   $('a[href^="#"]').on('click',function (e) {
